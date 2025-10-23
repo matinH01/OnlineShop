@@ -33,6 +33,7 @@ fun OnlineShopApp() {
         ) {
             NavHost(navController, startDestination = "home") {
                 composable("home") { HomeScreen(navController) }
+                composable("changePassword") { ChangePasswordScreen(navController) }
                 composable("basket") { BasketScreen(navController) }
                 composable("userPayment") { UserPaymentScreen(navController) }
                 composable("login") { LoginScreen(navController) }
