@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "net.holosen.onlineshopapp"
+    namespace = "net.holosen.onlineshop"
     compileSdk = 36
 
     defaultConfig {
