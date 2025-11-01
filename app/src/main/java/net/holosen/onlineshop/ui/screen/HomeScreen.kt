@@ -9,8 +9,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import net.holosen.onlineshop.ui.component.app.ProductCategoriesRow
 import net.holosen.onlineshop.ui.component.app.ProductsView
 import net.holosen.onlineshop.ui.component.app.SlidersRow
@@ -18,8 +17,9 @@ import net.holosen.onlineshop.vm.HomeViewModel
 
 @Composable
 fun HomeScreen(
-    navController: NavHostController,
-    vm: HomeViewModel = hiltViewModel()
+    vm: HomeViewModel = hiltViewModel(),
+    onNavigateToProducts: (Long, String) -> Unit,
+    onNavigateToProduct: (Long) -> Unit
 ) {
     Column(
         Modifier
@@ -28,8 +28,12 @@ fun HomeScreen(
     ) {
         SlidersRow(vm)
         Spacer(Modifier.height(10.dp))
-        ProductCategoriesRow(vm, navController)
+        ProductCategoriesRow(vm) { id, title ->
+            onNavigateToProducts(id, title)
+        }
         Spacer(Modifier.height(10.dp))
-        ProductsView(vm, navController)
+        ProductsView(vm) { id ->
+            onNavigateToProduct(id)
+        }
     }
 }
