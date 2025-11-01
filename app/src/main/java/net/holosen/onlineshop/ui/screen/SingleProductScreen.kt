@@ -36,12 +36,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import net.holosen.onlineshop.ui.component.animation.AnimatedSlideIn
-import net.holosen.onlineshop.ui.component.graphic.AppGradient
 import net.holosen.onlineshop.ui.component.app.AppImage
 import net.holosen.onlineshop.ui.component.app.PriceText
+import net.holosen.onlineshop.ui.component.graphic.AppGradient
 import net.holosen.onlineshop.vm.BasketViewModel
 import net.holosen.onlineshop.vm.SingleProductViewModel
 
@@ -49,11 +48,10 @@ import net.holosen.onlineshop.vm.SingleProductViewModel
 fun SingleProductScreen(
     id: Long,
     innerPadding: PaddingValues,
-    navController: NavHostController,
     vm: SingleProductViewModel = hiltViewModel(),
-    basketVM: BasketViewModel = hiltViewModel()
+    basketVM: BasketViewModel = hiltViewModel(),
+    onPopBack: () -> Unit
 ) {
-
     val context = LocalContext.current
 
     LaunchedEffect(id) {
@@ -73,7 +71,7 @@ fun SingleProductScreen(
                 .padding(innerPadding)
         ) {
             IconButton(onClick = {
-                navController.popBackStack()
+                onPopBack()
             }, modifier = Modifier.align(Alignment.TopStart)) {
                 Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
             }
@@ -123,7 +121,7 @@ fun SingleProductScreen(
                                 "به سبد خرید اضافه شد",
                                 Toast.LENGTH_SHORT
                             ).show()
-                            navController.popBackStack()
+                            onPopBack()
                         },
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(
