@@ -32,17 +32,15 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavHostController
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import net.holosen.onlineshop.ui.component.app.AppTextField
 import net.holosen.onlineshop.ui.theme.AppDarkGray
 import net.holosen.onlineshop.vm.LoginViewModel
 
 @Composable
 fun LoginScreen(
-    navController: NavHostController,
-    vm: LoginViewModel = hiltViewModel()
+    vm: LoginViewModel = hiltViewModel(),
+    onNavigateToProfile: () -> Unit
 ) {
 
     val context = LocalContext.current
@@ -143,13 +141,7 @@ fun LoginScreen(
                                     "${it.firstName} عزیز. خوش آمدید.",
                                     Toast.LENGTH_SHORT
                                 ).show()
-                                navController.navigate("profile") {
-                                    popUpTo(navController.graph.findStartDestination().id) {
-                                        saveState = false
-                                    }
-                                    launchSingleTop = true
-                                    restoreState = false
-                                }
+                                onNavigateToProfile()
                             }
                         )
                     },
