@@ -5,7 +5,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import net.holosen.onlineshop.ui.theme.iranSans
+import net.holosen.onlineshop.ui.theme.iranYekan
 
 @Composable
 fun AppDialog(
@@ -21,16 +21,16 @@ fun AppDialog(
     if (showDialog) {
         AlertDialog(
             onDismissRequest = { onDismiss() },
-            title = { Text(title, fontFamily = iranSans) },
-            text = { Text(text, fontFamily = iranSans) },
+            title = { Text(title, fontFamily = iranYekan) },
+            text = { Text(text, fontFamily = iranYekan) },
             confirmButton = {
                 TextButton(onClick = { onConfirm() }) {
-                    Text(confirmButtonText, color = Color.Red, fontFamily = iranSans)
+                    Text(confirmButtonText, color = Color.Red, fontFamily = iranYekan)
                 }
             },
             dismissButton = {
                 TextButton(onClick = { onCancel() }) {
-                    Text(cancelButtonText, fontFamily = iranSans)
+                    Text(cancelButtonText, fontFamily = iranYekan)
                 }
             }
         )
