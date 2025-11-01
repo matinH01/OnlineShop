@@ -36,7 +36,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import net.holosen.onlineshop.model.customer.UserDto
@@ -48,11 +48,12 @@ import net.holosen.onlineshop.vm.UserViewModel
 
 @Composable
 fun UserPaymentScreen(
-    navController: NavHostController,
     basketVM: BasketViewModel = hiltViewModel(),
     payVM: PaymentViewModel = hiltViewModel(),
     loginVM: LoginViewModel = hiltViewModel(),
-    userVM: UserViewModel = hiltViewModel()
+    userVM: UserViewModel = hiltViewModel(),
+    onPopBack:() -> Unit,
+    onNavigateToHome:() -> Unit,
 ) {
     val basket by basketVM.basket.collectAsState()
     val currentUser by userVM.currentUser.collectAsState()
@@ -92,7 +93,7 @@ fun UserPaymentScreen(
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(onClick = { navController.popBackStack() }) {
+            IconButton(onClick = { onPopBack() }) {
                 Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
             }
             Spacer(Modifier.width(5.dp))
@@ -248,13 +249,7 @@ fun UserPaymentScreen(
                                 onSuccess = {
                                     isLoading = false
                                     val intent = Intent(Intent.ACTION_VIEW, it)
-                                    navController.navigate("home") {
-                                        popUpTo(navController.graph.findStartDestination().id) {
-                                            saveState = false
-                                        }
-                                        launchSingleTop = true
-                                        restoreState = false
-                                    }
+                                    onNavigateToHome()
                                     context.startActivity(intent)
                                 }
                             )
