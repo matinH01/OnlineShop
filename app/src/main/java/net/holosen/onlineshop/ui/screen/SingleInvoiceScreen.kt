@@ -28,7 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import net.holosen.onlineshop.model.invoices.InvoiceItem
 import net.holosen.onlineshop.ui.component.app.AppImage
@@ -42,7 +42,6 @@ import net.holosen.onlineshop.vm.UserViewModel
 @Composable
 fun SingleInvoiceScreen(
     id: Long,
-    navController: NavHostController,
     vm: SingleInvoiceViewModel = hiltViewModel(),
     userVM: UserViewModel = hiltViewModel()
 ) {
