@@ -26,9 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavHostController
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import net.holosen.onlineshop.R
 import net.holosen.onlineshop.ui.component.app.AppImage
 import net.holosen.onlineshop.ui.component.app.ProfileActionItem
@@ -38,8 +36,9 @@ import net.holosen.onlineshop.vm.UserViewModel
 
 @Composable
 fun ProfileScreen(
-    navController: NavHostController,
-    userVM: UserViewModel = hiltViewModel()
+    userVM: UserViewModel = hiltViewModel(),
+    onNavigateToInvoices: () -> Unit,
+    onNavigateToHome: () -> Unit
 ) {
     val currentUser by userVM.currentUser.collectAsState()
 
@@ -78,7 +77,7 @@ fun ProfileScreen(
                 "سفارشات",
                 icon = Icons.Filled.Star,
                 onClick = {
-                    navController.navigate("invoices")
+                    onNavigateToInvoices()
                 }
             )
 
@@ -93,13 +92,7 @@ fun ProfileScreen(
                 icon = Icons.AutoMirrored.Filled.ExitToApp,
                 onClick = {
                     userVM.logout()
-                    navController.navigate("home") {
-                        popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = false
-                        }
-                        launchSingleTop = true
-                        restoreState = false
-                    }
+                    onNavigateToHome()
                 },
                 color = Color.Red
             )
