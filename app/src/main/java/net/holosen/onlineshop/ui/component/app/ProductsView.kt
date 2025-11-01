@@ -24,7 +24,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import net.holosen.onlineshop.ui.component.animation.AnimatedSlideIn
 import net.holosen.onlineshop.ui.component.basic.DataUiStateHandler
 import net.holosen.onlineshop.vm.HomeViewModel
@@ -32,12 +31,14 @@ import net.holosen.onlineshop.vm.HomeViewModel
 @Composable
 fun ProductsView(
     vm: HomeViewModel,
-    navController: NavHostController
+    onNavigateToProduct: (Long) -> Unit
 ) {
     Column {
         ProductFilterRow(vm)
         Spacer(Modifier.height(10.dp))
-        ProductListView(vm, navController)
+        ProductListView(vm) { id ->
+            onNavigateToProduct(id)
+        }
     }
 }
 
@@ -82,7 +83,7 @@ fun ProductFilterRow(vm: HomeViewModel) {
 
 
 @Composable
-fun ProductListView(vm: HomeViewModel, navController: NavHostController) {
+fun ProductListView(vm: HomeViewModel, onNavigateToProduct: (Long) -> Unit) {
     DataUiStateHandler(
         state = vm.products,
         modifier = Modifier
@@ -101,7 +102,8 @@ fun ProductListView(vm: HomeViewModel, navController: NavHostController) {
                             .fillMaxWidth()
                             .height(200.dp),
                         onClick = {
-                            navController.navigate("showProduct/${item.id}")
+                            onNavigateToProduct(item.id ?: 0)
+//                            navController.navigate("showProduct/${item.id}")
                         }
                     )
                 }
