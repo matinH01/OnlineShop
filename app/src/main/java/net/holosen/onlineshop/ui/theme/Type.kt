@@ -9,22 +9,22 @@ import androidx.compose.ui.unit.sp
 import net.holosen.onlineshop.R
 
 
-val iranSans = FontFamily(
-    Font(R.font.iransans_regular, FontWeight.Normal),
-    Font(R.font.iransans_bold, FontWeight.Bold)
+val iranYekan = FontFamily(
+    Font(R.font.iran_yekan_mobile_regular_number, FontWeight.Normal),
+    Font(R.font.iran_yekan_mobile_bold_numerals, FontWeight.Bold)
 )
 
 // Set of Material typography styles to start with
 val Typography = Typography(
     bodyLarge = TextStyle(
-        fontFamily = iranSans,
+        fontFamily = iranYekan,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     ),
     labelLarge = TextStyle(
-        fontFamily = iranSans,
+        fontFamily = iranYekan,
         fontSize = 14.sp
     )
     /* Other default text styles to override
