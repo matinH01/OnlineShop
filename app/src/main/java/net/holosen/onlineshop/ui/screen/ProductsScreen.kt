@@ -20,8 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import net.holosen.onlineshop.ui.component.animation.AnimatedSlideIn
 import net.holosen.onlineshop.ui.component.app.AppCard
 import net.holosen.onlineshop.vm.ProductsViewModel
@@ -30,8 +29,8 @@ import net.holosen.onlineshop.vm.ProductsViewModel
 fun ProductsScreen(
     catId: Long,
     title: String,
-    navController: NavHostController,
-    vm: ProductsViewModel = hiltViewModel()
+    vm: ProductsViewModel = hiltViewModel(),
+    onNavigateToProduct: (Long) -> Unit
 ) {
     val listState = rememberLazyListState()
     val shouldLoadMore by remember {
@@ -70,7 +69,7 @@ fun ProductsScreen(
                             .fillMaxWidth()
                             .height(200.dp),
                         onClick = {
-                            navController.navigate("showProduct/${item.id}")
+                            onNavigateToProduct(item.id ?: 0)
                         }
                     )
                 }
