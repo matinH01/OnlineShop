@@ -24,7 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import net.holosen.onlineshop.ui.component.animation.AnimatedSlideIn
 import net.holosen.onlineshop.ui.component.app.ProfileActionItem
@@ -34,9 +34,9 @@ import net.holosen.onlineshop.vm.UserViewModel
 
 @Composable
 fun InvoicesScreen(
-    navController: NavHostController,
     vm: InvoiceViewModel = hiltViewModel(),
-    userVM: UserViewModel = hiltViewModel()
+    userVM: UserViewModel = hiltViewModel(),
+    onNavigateToInvoice: (Long) -> Unit
 ) {
     val currentUser by userVM.currentUser.collectAsState()
 
@@ -78,7 +78,7 @@ fun InvoicesScreen(
                         "${item.addDate ?: "-"} (${item.status ?: "-"})",
                         icon = if (item.status == "NotPayed") Icons.Filled.Close else Icons.Filled.Check,
                         onClick = {
-                            navController.navigate("invoice/${item.id}")
+                            onNavigateToInvoice(item.id ?: 0)
                         },
                         color = if (item.status == "NotPayed") Color.Red else AppGreen
                     )
