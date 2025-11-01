@@ -9,7 +9,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import net.holosen.onlineshop.ui.component.animation.AnimatedSlideIn
 import net.holosen.onlineshop.ui.component.basic.DataUiStateHandler
 import net.holosen.onlineshop.vm.HomeViewModel
@@ -17,7 +16,7 @@ import net.holosen.onlineshop.vm.HomeViewModel
 @Composable
 fun ProductCategoriesRow(
     vm: HomeViewModel,
-    navController: NavHostController
+    onNavigateToProducts: (Long, String) -> Unit
 ) {
     DataUiStateHandler(
         state = vm.productCategories,
@@ -37,7 +36,7 @@ fun ProductCategoriesRow(
                             .width(160.dp)
                             .height(200.dp),
                         onClick = {
-                            navController.navigate("products/${item.id}/${item.title}")
+                            onNavigateToProducts(item.id ?: 0, item.title ?: "")
                         }
                     )
                 }
