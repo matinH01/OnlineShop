@@ -13,7 +13,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
@@ -81,12 +80,6 @@ fun ProfileScreen(
                 onClick = {
                     navController.navigate("invoices")
                 }
-            )
-
-            ProfileActionItem(
-                "تغییر رمز عبور",
-                icon = Icons.Filled.Lock,
-                onClick = {}
             )
 
             ProfileActionItem(
