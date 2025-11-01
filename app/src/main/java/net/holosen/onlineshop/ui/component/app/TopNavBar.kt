@@ -19,8 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import net.holosen.onlineshop.R
 import net.holosen.onlineshop.ui.component.animation.AnimatedSlideIn
 import net.holosen.onlineshop.vm.BasketViewModel
@@ -29,9 +28,11 @@ import net.holosen.onlineshop.vm.UserViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopNavBar(
-    navController: NavHostController,
     basketVM: BasketViewModel = hiltViewModel(),
-    userVM: UserViewModel = hiltViewModel()
+    userVM: UserViewModel = hiltViewModel(),
+    onNavigateToBasket: () -> Unit,
+    onNavigateToLogin: () -> Unit,
+    onNavigateToProfile: () -> Unit
 ) {
     val basket by basketVM.basket.collectAsState()
     val currentUser by userVM.currentUser.collectAsState()
@@ -48,9 +49,7 @@ fun TopNavBar(
         }, actions = {
             AnimatedSlideIn(600) {
                 IconButton(onClick = {
-                    navController.navigate("basket") {
-                        launchSingleTop = true
-                    }
+                    onNavigateToBasket()
                 }) {
                     BadgedBox(
                         badge = {
@@ -68,11 +67,9 @@ fun TopNavBar(
             AnimatedSlideIn(900) {
                 IconButton(onClick = {
                     if (currentUser == null) {
-                        navController.navigate("login")
+                        onNavigateToLogin()
                     } else {
-                        navController.navigate("profile") {
-                            launchSingleTop = true
-                        }
+                        onNavigateToProfile()
                     }
                 }) {
                     Icon(imageVector = Icons.Filled.Person, contentDescription = "Basket")
