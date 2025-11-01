@@ -38,20 +38,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import net.holosen.onlineshop.model.db.BasketEntity
 import net.holosen.onlineshop.ui.component.animation.AnimatedSlideIn
-import net.holosen.onlineshop.ui.component.dialog.AppDialog
 import net.holosen.onlineshop.ui.component.app.AppImage
 import net.holosen.onlineshop.ui.component.app.PriceText
+import net.holosen.onlineshop.ui.component.dialog.AppDialog
 import net.holosen.onlineshop.ui.theme.AppGreen
 import net.holosen.onlineshop.vm.BasketViewModel
 
 @Composable
 fun BasketScreen(
-    navController: NavHostController,
-    vm: BasketViewModel = hiltViewModel()
+    vm: BasketViewModel = hiltViewModel(),
+    onNavigateToHome: () -> Unit,
+    onNavigateToUserPayment: () -> Unit
 ) {
     val basket by vm.basket.collectAsState()
     var showDialog by remember { mutableStateOf(false) }
@@ -111,7 +111,7 @@ fun BasketScreen(
                 Row(Modifier.fillMaxWidth()) {
                     Button(
                         onClick = {
-                            navController.navigate("home")
+                            onNavigateToHome()
                         },
                         modifier = Modifier.weight(1f), colors = ButtonDefaults.buttonColors(
                             containerColor = Color.White,
@@ -123,7 +123,7 @@ fun BasketScreen(
                     Spacer(Modifier.width(10.dp))
                     Button(
                         onClick = {
-                            navController.navigate("userPayment")
+                         onNavigateToUserPayment()
                         },
                         modifier = Modifier.weight(1f),
                         colors = ButtonDefaults.buttonColors(
