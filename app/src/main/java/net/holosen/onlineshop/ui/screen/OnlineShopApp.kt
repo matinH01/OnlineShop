@@ -6,24 +6,39 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import androidx.navigation.navDeepLink
 import net.holosen.onlineshop.ui.component.app.TopNavBar
 
 @Composable
 fun OnlineShopApp() {
     val navController = rememberNavController()
-    val isFullScreen = checkForFullScreen(navController)
+    var isFullScreen by remember { mutableStateOf(false) }
     Scaffold(
-        topBar = { if (!isFullScreen) TopNavBar(navController) },
+        topBar = {
+            if (!isFullScreen) {
+                TopNavBar(
+                    onNavigateToBasket = {
+                        navController.navigate(AppDestination.Basket) {
+                            launchSingleTop = true
+                        }
+                    },
+                    onNavigateToLogin = {
+                        navController.navigate(AppDestination.Login)
+                    },
+                    onNavigateToProfile = {
+                        navController.navigate(AppDestination.Profile) {
+                            launchSingleTop = true
+                        }
+                    }
+                )
+            }
+        },
         modifier = Modifier.fillMaxSize()
     ) { innerPadding ->
         Box(
@@ -31,57 +46,7 @@ fun OnlineShopApp() {
                 .fillMaxSize()
                 .padding(if (!isFullScreen) innerPadding else PaddingValues(0.dp))
         ) {
-            NavHost(navController, startDestination = "home") {
-                composable("home") { HomeScreen(navController) }
-                composable("changePassword") { ChangePasswordScreen(navController) }
-                composable("basket") { BasketScreen(navController) }
-                composable("userPayment") { UserPaymentScreen(navController) }
-                composable("login") { LoginScreen(navController) }
-                composable("profile") { ProfileScreen(navController) }
-                composable("invoices") { InvoicesScreen(navController) }
-                composable(
-                    "products/{catId}/{title}",
-                    arguments = listOf(
-                        navArgument("catId") { type = NavType.LongType },
-                        navArgument("title") { type = NavType.StringType }
-                    )) {
-                    val catId = it.arguments?.getLong("catId") ?: 0
-                    val title = it.arguments?.getString("title") ?: ""
-                    ProductsScreen(catId, title, navController)
-                }
-                composable(
-                    "showProduct/{id}",
-                    arguments = listOf(
-                        navArgument("id") { type = NavType.LongType }
-                    )) {
-                    val id = it.arguments?.getLong("id") ?: 0
-                    SingleProductScreen(id, innerPadding, navController)
-                }
-                composable(
-                    "invoice/{id}",
-                    arguments = listOf(
-                        navArgument("id") { type = NavType.LongType }
-                    ),
-                    deepLinks = listOf(navDeepLink {
-                        uriPattern = "app://onlineshopholosen.ir/{id}"
-                    })
-                    ) {
-                    val id = it.arguments?.getLong("id") ?: 0
-                    SingleInvoiceScreen(id, navController)
-                }
-            }
+            isFullScreen = setupNavGraph(navController, innerPadding)
         }
-    }
-}
-
-
-@Composable
-fun checkForFullScreen(navController: NavHostController): Boolean {
-    val fullScreenRoutes = listOf("login", "showProduct")
-    val currentRoute =
-        navController.currentBackStackEntryAsState().value?.destination?.route ?: "home"
-
-    return fullScreenRoutes.any {
-        currentRoute.startsWith(it)
     }
 }
