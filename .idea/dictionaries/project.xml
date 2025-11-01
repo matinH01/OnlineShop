@@ -2,11 +2,24 @@
   <dictionary name="project">
     <words>
       <w>onlineshopholosen</w>
+      <w>آدرس</w>
+      <w>اطلاعات</w>
+      <w>بندی</w>
       <w>تغییر</w>
       <w>تکرار</w>
+      <w>تکمیل</w>
+      <w>خانوادگی</w>
+      <w>خرید</w>
       <w>درباره</w>
+      <w>سایز</w>
       <w>سفارشات</w>
+      <w>شماره</w>
+      <w>عزیز</w>
       <w>قدیمی</w>
+      <w>همراه</w>
+      <w>پرداخت</w>
+      <w>پرطرفدار</w>
+      <w>پستی</w>
     </words>
   </dictionary>
 </component>
