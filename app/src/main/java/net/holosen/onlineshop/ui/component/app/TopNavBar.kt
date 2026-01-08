@@ -3,9 +3,6 @@ package net.holosen.onlineshop.ui.component.app
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -60,7 +57,10 @@ fun TopNavBar(
                             }
                         }
                     ) {
-                        Icon(imageVector = Icons.Filled.ShoppingCart, contentDescription = "Basket")
+                        Icon(
+                            painterResource(R.drawable.shopping_cart),
+                            contentDescription = "Basket"
+                        )
                     }
                 }
             }
@@ -72,7 +72,7 @@ fun TopNavBar(
                         onNavigateToProfile()
                     }
                 }) {
-                    Icon(imageVector = Icons.Filled.Person, contentDescription = "Basket")
+                    Icon(painterResource(R.drawable.user), contentDescription = "Basket")
                 }
             }
         }

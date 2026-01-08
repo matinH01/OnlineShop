@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -29,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -37,8 +36,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavHostController
+import net.holosen.onlineshop.R
 import net.holosen.onlineshop.model.customer.UserDto
 import net.holosen.onlineshop.ui.component.app.AppTextField
 import net.holosen.onlineshop.vm.BasketViewModel
@@ -52,8 +50,8 @@ fun UserPaymentScreen(
     payVM: PaymentViewModel = hiltViewModel(),
     loginVM: LoginViewModel = hiltViewModel(),
     userVM: UserViewModel = hiltViewModel(),
-    onPopBack:() -> Unit,
-    onNavigateToHome:() -> Unit,
+    onPopBack: () -> Unit,
+    onNavigateToHome: () -> Unit,
 ) {
     val basket by basketVM.basket.collectAsState()
     val currentUser by userVM.currentUser.collectAsState()
@@ -94,7 +92,7 @@ fun UserPaymentScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(onClick = { onPopBack() }) {
-                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                Icon(painterResource(R.drawable.left), contentDescription = "Back")
             }
             Spacer(Modifier.width(5.dp))
             Text(

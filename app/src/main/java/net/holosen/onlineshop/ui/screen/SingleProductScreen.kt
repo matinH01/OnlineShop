@@ -17,9 +17,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -32,11 +29,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import net.holosen.onlineshop.R
 import net.holosen.onlineshop.ui.component.animation.AnimatedSlideIn
 import net.holosen.onlineshop.ui.component.app.AppImage
 import net.holosen.onlineshop.ui.component.app.PriceText
@@ -73,7 +72,7 @@ fun SingleProductScreen(
             IconButton(onClick = {
                 onPopBack()
             }, modifier = Modifier.align(Alignment.TopStart)) {
-                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                Icon(painterResource(R.drawable.left), contentDescription = "Back")
             }
             Column(
                 modifier = Modifier
@@ -204,7 +203,7 @@ fun ProductColorsRow(vm: SingleProductViewModel) {
                     )
                 ) {
                     if (vm.selectedColor == item) {
-                        Icon(Icons.Filled.Check, contentDescription = "Selected Color")
+                        Icon(painterResource(R.drawable.done), contentDescription = "Selected Color")
                     }
                 }
             }

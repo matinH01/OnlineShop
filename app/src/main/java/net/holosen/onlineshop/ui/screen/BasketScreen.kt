@@ -13,10 +13,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -34,11 +30,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import net.holosen.onlineshop.R
 import net.holosen.onlineshop.model.db.BasketEntity
 import net.holosen.onlineshop.ui.component.animation.AnimatedSlideIn
 import net.holosen.onlineshop.ui.component.app.AppImage
@@ -123,7 +121,7 @@ fun BasketScreen(
                     Spacer(Modifier.width(10.dp))
                     Button(
                         onClick = {
-                         onNavigateToUserPayment()
+                            onNavigateToUserPayment()
                         },
                         modifier = Modifier.weight(1f),
                         colors = ButtonDefaults.buttonColors(
@@ -212,13 +210,13 @@ fun BasketItemRow(
                     IconButton(onClick = {
                         onDecrease(item)
                     }) {
-                        Icon(Icons.Filled.KeyboardArrowDown, contentDescription = "Decrease")
+                        Icon(painterResource(R.drawable.decrease), contentDescription = "Decrease")
                     }
                     Text("${item.quantity}", modifier = Modifier.padding(8.dp))
                     IconButton(onClick = {
                         onIncrease(item)
                     }) {
-                        Icon(Icons.Filled.KeyboardArrowUp, contentDescription = "Increase")
+                        Icon(painterResource(R.drawable.increase), contentDescription = "Increase")
                     }
                 }
 
@@ -226,9 +224,8 @@ fun BasketItemRow(
                     onRemove(item)
                 }) {
                     Icon(
-                        Icons.Filled.Close,
-                        contentDescription = "Delete",
-                        tint = Color.Red
+                        painterResource(R.drawable.close),
+                        contentDescription = "Delete"
                     )
                 }
             }

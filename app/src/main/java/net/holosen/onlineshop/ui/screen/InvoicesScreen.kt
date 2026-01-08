@@ -9,9 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -21,11 +18,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.navigation.NavHostController
+import net.holosen.onlineshop.R
 import net.holosen.onlineshop.ui.component.animation.AnimatedSlideIn
 import net.holosen.onlineshop.ui.component.app.ProfileActionItem
 import net.holosen.onlineshop.ui.theme.AppGreen
@@ -76,7 +74,9 @@ fun InvoicesScreen(
                 AnimatedSlideIn(index * 100) {
                     ProfileActionItem(
                         "${item.addDate ?: "-"} (${item.status ?: "-"})",
-                        icon = if (item.status == "NotPayed") Icons.Filled.Close else Icons.Filled.Check,
+                        icon =
+                            if (item.status == "NotPayed") painterResource(R.drawable.close)
+                            else painterResource(R.drawable.done),
                         onClick = {
                             onNavigateToInvoice(item.id ?: 0)
                         },
